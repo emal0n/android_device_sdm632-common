@@ -177,6 +177,7 @@ BOARD_ROOT_EXTRA_SYMLINKS := \
 # Power
 TARGET_HAS_NO_WLAN_STATS := true
 TARGET_USES_INTERACTION_BOOST := true
+TARGET_POWERHAL_BOOST_EXT := $(COMMON_PATH)/configs/power/boost-ext.cpp
 
 # Properties
 TARGET_ODM_PROP += $(COMMON_PATH)/odm.prop
