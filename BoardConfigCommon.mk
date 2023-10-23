@@ -141,10 +141,6 @@ BOARD_INCLUDE_RECOVERY_DTBO := true
 TARGET_KERNEL_SOURCE := kernel/motorola/sdm632
 TARGET_KERNEL_VERSION := 4.9
 
-# Kernel additional flags
-TARGET_KERNEL_ADDITIONAL_FLAGS := \
-    HOSTCFLAGS="-fuse-ld=lld -Wno-unused-command-line-argument"
-
 # Lights
 TARGET_PROVIDES_LIBLIGHT := true
 
