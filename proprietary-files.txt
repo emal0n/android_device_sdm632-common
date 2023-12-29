@@ -447,7 +447,6 @@ vendor/lib64/libqmi_encdec.so
 
 # Radio
 -product/app/QtiTelephonyService/QtiTelephonyService.apk
--product/app/datastatusnotification/datastatusnotification.apk
 -product/priv-app/qcrilmsgtunnel/qcrilmsgtunnel.apk
 -vendor/lib/libdsi_netctrl.so
 -vendor/lib64/libdsi_netctrl.so
