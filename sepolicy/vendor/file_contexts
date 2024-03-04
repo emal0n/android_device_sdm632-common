@@ -68,6 +68,9 @@
 /data/vendor/misc/cutback(/.*)?                         u:object_r:cutback_data_file:s0
 /dev/socket/cutback                                     u:object_r:cutback_socket:s0
 
+# WIFI
+/(vendor|system/vendor)/bin/hw/android\.hardware\.wifi@1\.0-service\.legacy u:object_r:hal_wifi_default_exec:s0
+
 # Charger
 /data/vendor/chargeonly(/.*)?                            u:object_r:chargeonly_vendor_data_file:s0
 /(mnt/vendor/persist|persist)/chargeonly(/.*)?           u:object_r:persist_chargeonly_file:s0
