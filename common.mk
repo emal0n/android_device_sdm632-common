@@ -287,6 +287,9 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/configs/permissions/privapp-permissions-qti.xml:$(TARGET_COPY_OUT_SYSTEM)/etc/permissions/privapp-permissions-qti.xml \
     $(LOCAL_PATH)/configs/permissions/qti_whitelist.xml:$(TARGET_COPY_OUT_SYSTEM)/etc/sysconfig/qti_whitelist.xml
 
+# Prebuilt Headers
+PRODUCT_VENDOR_KERNEL_HEADERS := kernel/motorola/kernel-headers
+
 # QMI
 PRODUCT_PACKAGES += \
     libjson
