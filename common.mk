@@ -136,9 +136,7 @@ PRODUCT_GMS_CLIENTID_BASE := android-motorola
 
 # Health
 PRODUCT_PACKAGES += \
-    android.hardware.health@2.1-impl:64 \
-    android.hardware.health@2.1-impl.recovery \
-    android.hardware.health@2.1-service
+    android.hardware.health@2.1-impl.recovery
 
 # HIDL
 PRODUCT_PACKAGES += \
@@ -300,6 +298,7 @@ PRODUCT_PACKAGES += \
 TARGET_COMMON_QTI_COMPONENTS += \
     av \
     bt \
+    charging \
     gps \
     perf \
     vibrator
