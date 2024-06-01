@@ -95,13 +95,8 @@ ro.vendor.fm.use_audio_session=true
 # HEH filename encryption is being dropped
 ro.crypto.volume.filenames_mode=aes-256-cts
 
-# OEM Unlock reporting
-ro.oem_unlock_supported=1
-
-# OMX
-# Rank OMX SW codecs lower than OMX HW codecs
-debug.stagefright.omx_default_rank.sw-audio=1
-debug.stagefright.omx_default_rank=0
+# Keymaster 4.0 - TDES support
+ro.hardware.keystore_desede=true
 
 # LMKD/PSI
 ro.lmk.use_psi=true
@@ -113,17 +108,16 @@ ro.lmk.upgrade_pressure=40
 ro.lmk.downgrade_pressure=60
 ro.lmk.kill_heaviest_task=false
 
+# OEM Unlock reporting
+ro.oem_unlock_supported=1
+
+# OMX
+# Rank OMX SW codecs lower than OMX HW codecs
+debug.stagefright.omx_default_rank.sw-audio=1
+debug.stagefright.omx_default_rank=0
+
 # Perf
 ro.vendor.extension_library=libqti-perfd-client.so
-
-# Play store
-ro.com.google.clientidbase.am=android-motorola
-ro.com.google.clientidbase.gmm=android-motorola
-ro.com.google.clientidbase.ms=android-motorola
-ro.com.google.clientidbase.yt=android-motorola
-
-# Keymaster 4.0 - TDES support
-ro.hardware.keystore_desede=true
 
 # Radio
 persist.dbg.volte_avail_ovr=1

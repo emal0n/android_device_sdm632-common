@@ -14,17 +14,9 @@
 # limitations under the License.
 #
 
-#
-# This file sets variables that control the way modules are built
-# thorughout the system. It should not be used to conditionally
-# disable makefiles (the proper mechanism to control what gets
-# included in a build is to use PRODUCT_PACKAGES in a product
-# definition file).
-#
+COMMON_PATH := device/motorola/sdm632-common
 
-PLATFORM_PATH := device/motorola/sdm632-common
-
-# Platform
+# Architeture
 TARGET_ARCH := arm64
 TARGET_ARCH_VARIANT := armv8-a
 TARGET_CPU_ABI := arm64-v8a
@@ -38,13 +30,6 @@ TARGET_2ND_CPU_ABI := armeabi-v7a
 TARGET_2ND_CPU_ABI2 := armeabi
 TARGET_2ND_CPU_VARIANT := generic
 TARGET_2ND_CPU_VARIANT_RUNTIME := cortex-a53
-
-BOARD_USES_QCOM_HARDWARE := true
-TARGET_BOOTLOADER_BOARD_NAME := SDM632
-TARGET_BOARD_PLATFORM := msm8953
-
-BUILD_BROKEN_DUP_RULES := true
-BUILD_BROKEN_ELF_PREBUILT_PRODUCT_COPY_FILES := true
 
 # A/B updater
 AB_OTA_UPDATER := true
@@ -107,16 +92,22 @@ AUDIO_FEATURE_ENABLED_RAS := true
 AUDIO_FEATURE_ENABLED_PERF_HINTS := true
 AUDIO_USE_LL_AS_PRIMARY_OUTPUT := true
 
-# Bluetooth
-BOARD_HAVE_BLUETOOTH := true
-BOARD_HAVE_BLUETOOTH_QCOM := true
+# Bootloader / Platform
+BOARD_USES_QCOM_HARDWARE := true
+TARGET_BOOTLOADER_BOARD_NAME := SDM632
+TARGET_BOARD_PLATFORM := msm8953
 
-# Camera
-USE_CAMERA_STUB := true
+# Build
+BUILD_BROKEN_DUP_RULES := true
+BUILD_BROKEN_ELF_PREBUILT_PRODUCT_COPY_FILES := true
+
+# Declare boot header
+BOARD_BOOT_HEADER_VERSION := 1
+BOARD_MKBOOTIMG_ARGS += --header_version $(BOARD_BOOT_HEADER_VERSION)
 
 # Display
 USE_DEVICE_SPECIFIC_DISPLAY := true
-DEVICE_SPECIFIC_DISPLAY_PATH := $(PLATFORM_PATH)/qcom-caf/display
+DEVICE_SPECIFIC_DISPLAY_PATH := $(COMMON_PATH)/qcom-caf/display
 OVERRIDE_RS_DRIVER := libRSDriver_adreno.so
 TARGET_USES_ION := true
 TARGET_USES_HWC2 := true
@@ -131,15 +122,15 @@ BOARD_VENDOR_QCOM_GPS_LOC_API_HARDWARE := $(TARGET_BOARD_PLATFORM)
 LOC_HIDL_VERSION := 3.0
 
 # HIDL
-DEVICE_MANIFEST_FILE := $(PLATFORM_PATH)/manifest.xml
-DEVICE_MATRIX_FILE := $(PLATFORM_PATH)/compatibility_matrix.xml
-DEVICE_FRAMEWORK_MANIFEST_FILE := $(PLATFORM_PATH)/framework_manifest.xml
+DEVICE_MANIFEST_FILE := $(COMMON_PATH)/configs/vintf/manifest.xml
+DEVICE_MATRIX_FILE := $(COMMON_PATH)/configs/vintf/compatibility_matrix.xml
+DEVICE_FRAMEWORK_MANIFEST_FILE := $(COMMON_PATH)/configs/vintf/framework_manifest.xml
 TARGET_FS_CONFIG_GEN += \
-    $(PLATFORM_PATH)/config.fs \
-    $(PLATFORM_PATH)/mot_aids.fs
+    $(COMMON_PATH)/config.fs \
+    $(COMMON_PATH)/mot_aids.fs
 
 # Init
-TARGET_INIT_VENDOR_LIB := //$(PLATFORM_PATH):libinit_sdm632
+TARGET_INIT_VENDOR_LIB := //$(COMMON_PATH):libinit_sdm632
 TARGET_RECOVERY_DEVICE_MODULES := libinit_sdm632
 
 # Kernel
@@ -159,10 +150,6 @@ TARGET_KERNEL_VERSION := 4.9
 TARGET_KERNEL_ARCH := arm64
 TARGET_KERNEL_HEADER_ARCH := arm64
 
-# Declare boot header
-BOARD_BOOT_HEADER_VERSION := 1
-BOARD_MKBOOTIMG_ARGS += --header_version $(BOARD_BOOT_HEADER_VERSION)
-
 # Kernel additional flags
 TARGET_KERNEL_ADDITIONAL_FLAGS := \
     HOSTCFLAGS="-fuse-ld=lld -Wno-unused-command-line-argument"
@@ -170,21 +157,20 @@ TARGET_KERNEL_ADDITIONAL_FLAGS := \
 # Lights
 TARGET_PROVIDES_LIBLIGHT := true
 
+# LLVM
+TARGET_KERNEL_CLANG_COMPILE := true
+KERNEL_SUPPORTS_LLVM_TOOLS := true
+TARGET_KERNEL_ADDITIONAL_FLAGS += \
+    LLVM=1 LLVM_IAS=1
+
 # NFC / ODM
 ODM_MANIFEST_SKUS += nfc
-ODM_MANIFEST_NFC_FILES := $(PLATFORM_PATH)/odm_manifest_nfc.xml
+ODM_MANIFEST_NFC_FILES := $(COMMON_PATH)/configs/vintf/odm_manifest_nfc.xml
 
 # Partitions
 BOARD_FLASH_BLOCK_SIZE := 131072                  # (BOARD_KERNEL_PAGESIZE * 64)
 BOARD_DTBOIMG_PARTITION_SIZE := 8388608
-ifneq (,$(filter %channel, $(TARGET_PRODUCT)))
-BOARD_VENDORIMAGE_EXTFS_INODE_COUNT   := 4096
-BOARD_VENDORIMAGE_FILE_SYSTEM_TYPE    := squashfs
-BOARD_VENDORIMAGE_JOURNAL_SIZE        := 0
-BOARD_VENDORIMAGE_SQUASHFS_COMPRESSOR := lz4
-else
 BOARD_VENDORIMAGE_FILE_SYSTEM_TYPE := ext4
-endif
 BOARD_BUILD_SYSTEM_ROOT_IMAGE := true
 BOARD_USES_RECOVERY_AS_BOOT := true
 TARGET_NO_RECOVERY := true
@@ -200,16 +186,16 @@ TARGET_HAS_NO_WLAN_STATS := true
 TARGET_USES_INTERACTION_BOOST := true
 
 # Properties
-TARGET_ODM_PROP += $(PLATFORM_PATH)/odm.prop
-TARGET_PRODUCT_PROP += $(PLATFORM_PATH)/product.prop
-TARGET_SYSTEM_PROP += $(PLATFORM_PATH)/system.prop
-TARGET_VENDOR_PROP += $(PLATFORM_PATH)/vendor.prop
+TARGET_ODM_PROP += $(COMMON_PATH)/odm.prop
+TARGET_PRODUCT_PROP += $(COMMON_PATH)/product.prop
+TARGET_SYSTEM_PROP += $(COMMON_PATH)/system.prop
+TARGET_VENDOR_PROP += $(COMMON_PATH)/vendor.prop
 
 # RIL
 ENABLE_VENDOR_RIL_SERVICE := true
 
 # Recovery
-TARGET_RECOVERY_FSTAB := $(PLATFORM_PATH)/rootdir/etc/fstab.qcom
+TARGET_RECOVERY_FSTAB := $(COMMON_PATH)/rootdir/etc/fstab.qcom
 
 # Root
 BOARD_ROOT_EXTRA_FOLDERS := persist
@@ -219,8 +205,8 @@ VENDOR_SECURITY_PATCH := 2021-02-01
 
 # SELinux
 include device/qcom/sepolicy-legacy-um/SEPolicy.mk
-BOARD_VENDOR_SEPOLICY_DIRS += $(PLATFORM_PATH)/sepolicy/vendor
-PRODUCT_PRIVATE_SEPOLICY_DIRS += $(PLATFORM_PATH)/sepolicy/private
+BOARD_VENDOR_SEPOLICY_DIRS += $(COMMON_PATH)/sepolicy/vendor
+SYSTEM_EXT_PRIVATE_SEPOLICY_DIRS += $(COMMON_PATH)/sepolicy/private
 
 # Treble
 BOARD_VNDK_VERSION := current
