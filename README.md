@@ -5,4 +5,6 @@ Device configuration for Motorola SDM632 Devices
 
 Supported devices :
 
-River, Ocean, Channel
+* Motorola Moto G7 (river)
+* Motorola Moto G7 Power (ocean)
+* Motorola Moto G7 Play (channel)
