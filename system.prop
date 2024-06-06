@@ -4,6 +4,10 @@ use.voice.path.for.pcm.voip=false
 # Deep Sleep
 pm.sleep_mode=1
 
+# Display
+ro.sf.hwc_set_default_colormode=true
+dev.pm.dyn_samplingrate=1
+
 # Media
 media.stagefright.thumbnail.prefer_hw_codecs=true
 
